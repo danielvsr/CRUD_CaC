@@ -10,26 +10,27 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author danie
- * host + database, userMysql, passMysql
- * String database, String userMysql, String passMysql
- * private String host = "jdbc:mysql://localhost:3306/";
- */
+/*EN ESTA CLASE SE VA A CREA TODA LA LOGICA PARA LA CONEXION A MI BASE DE DATOS*/
 public class Conexion {
     private String driver = "com.mysql.jdbc.Driver";
     private String host = "jdbc:mysql://localhost:3306/";
-    
+/*ESTO ES EL METODO PARA LA CONEXION A MI BASE DE DATOS*/
+/*STRING database -> NOMBRE DE MI BD*/
+/*STRING userMysql y passMysql -> LOS DATOS PARA CONECTAR A MI BD*/    
+/*IMPORTAR LAS CLASES A UTILIZAR*/    
     public Connection getConnection(String database, String userMysql, String passMysql){
+/*Creamos una VARIABLE del tipo CONNECTION de nombre CONN -> PODEMOS PONERLE EL NOMBRE QUE NOS QUEDE MÁS COMODO*/
+/*La inicializamos en 0 (NULL)porque es lo que después tenemos que retornar -> RETURN CONN*/
         Connection conn = null;
-    
+/*Se realiza un bloque TRY / CACHT*/            
         try{
             Class.forName(driver);
             conn = DriverManager.getConnection(host + database, userMysql, passMysql);
-            
+/*conn -> NOS VA A DEVOLVER UN OBJETO DEL TIPO CONECCTION CON TODOS LOS DATOS PARA MI CONEXION LO CUALES ESTAN POR PARAMETRO*/
+/*NOS VA A DEVOLVER LA CONEXION CADA VEZ QUE LA NECESITEMOS*/
         }catch(ClassNotFoundException | SQLException e){
             e.printStackTrace();
+/*printStackTrace() -> ES EL METODO QUE VA A DEVOLVER EL ERROR*/            
         }
         return conn;
     }    

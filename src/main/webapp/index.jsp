@@ -48,6 +48,5 @@
             </article>
         </section>    
     </main>
-<footer class="border-top border-3 mt-5">
-    <p class="text-center pt-3">Made with ? by Sairov</p>
-</footer>
+
+<%@include file="/vistas/partials/footer.jsp" %>

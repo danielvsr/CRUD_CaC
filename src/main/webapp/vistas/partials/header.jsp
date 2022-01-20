@@ -4,6 +4,7 @@
     Author     : danie
 --%>
 
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -19,7 +20,9 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css">
+    
     <title>Banco República</title>
+    <link rel="shottcut icon" href="/img/logo_small_icon_only.png">
 </head>
 <body style="display: grid; grid-template-rows: auto 1fr auto; min-height: 100vh; overflow-x:hidden;">
     <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(var(--bg-primary), #3b5762) ;">
@@ -39,20 +42,20 @@
                     }
                     boolean isLogged = (boolean) session.getAttribute("isLogin");
                         if(isLogged){
-                
+                        User usuario = (User) session.getAttribute("usuario");
                 %>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link mx-2" aria-current="page" href="/view/cuentas">Mis Cuentas</a>
+                        <a class="nav-link mx-2" aria-current="page" href="/view/perfilCuenta">Mis Cuentas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-2" aria-current="page" href="#">Transferencias</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" aria-current="page" href="/view/new">Solicitar productos</a>
+                        <a class="nav-link mx-2" aria-current="page" href="/view/nuevaCuenta">Solicitar Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" aria-current="page" href="/view/perfil">Perfil</a>
+                        <a class="nav-link mx-2" aria-current="page" href="/view/perfil">Mi Perfíl</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-2" aria-current="page" href="/UserController/logout">Cerrar Sesión</a>

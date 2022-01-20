@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,14 +46,32 @@ public class AccountController extends HttpServlet {
             
             String action = request.getPathInfo();
             HttpSession session = request.getSession();
+            UserDAO userDB = new UserDAO();
             AccountDAO accountDB = new AccountDAO();
             
             
             switch (action){
                 case "/perfilCuenta":
-
-                    response.sendRedirect("/vistas/perfilCuentas.jsp");
+                    /*
+                    List<Account> accounts = new ArrayList<>();
+                    User user = (User) session.getAttribute("user");
+                    accounts = accountDB.getAccounts(user.getId());
+                    session.setAttribute("accounts", accounts);
+                    response.sendRedirect("/view/perfilCuenta.jsp");*/
+                    
+                    response.sendRedirect("/view/perfilCuenta.jsp");
+                    String userName = request.getParameter("nameUser_ep");
+                    User usuario = userDB.getUserByUserName(userName);
+                    session.setAttribute("usuario", usuario);
+                    List<Account> accounts = new ArrayList<>();
+                    accounts = accountDB.getAccounts(usuario.getId());
+                    session.setAttribute("accounts", accounts);
                     break;
+                case "/delete":
+ 
+                    response.sendRedirect("/view/perfil");
+                    
+                    break;    
                 case "/nuevaCuenta":
                     /*
                     UserDAO userDB = new UserDAO();
@@ -66,8 +85,12 @@ public class AccountController extends HttpServlet {
                     long balance = Long.parseLong(request.getParameter("balance"));
                     int user_id = Integer.parseInt(request.getParameter("user_id"));
                     
-                    accountDB.createAccount(account_number, type, currency, balance, user_id);
+                    accountDB.crearCuentas(account_number, type, currency, balance, user_id);
                     response.sendRedirect("/view/perfil");
+                    
+                    break;
+
+                default:
                     
                     break;
             }
@@ -86,11 +109,22 @@ public class AccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+        /*try {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        }*//*
+        AccountDAO accountDB = new AccountDAO();
+        String accion;
+        RequestDispatcher dispatcher = null;
+        accion = request.getParameter("accion");
+        
+        if(accion.equals("eliminar")){
+            int id = Integer.parseInt(request.getParameter("id"));
+            accountDB.deleteAccount(id);
+            dispatcher = request.getRequestDispatcher("/view/perfil");
         }
+        dispatcher.forward(request, response);*/
     }
 
     /**
@@ -104,11 +138,16 @@ public class AccountController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+
+        
     }
 
     /**

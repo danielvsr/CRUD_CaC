@@ -25,13 +25,22 @@ public class Account {
         this.userId = userId;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
-    
-    public void setId(int id){
-        this.id =id;
+
+    public void setId(int id) {
+        this.id = id;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
    
     public int getAccountNumber() {
         return accountNumber;

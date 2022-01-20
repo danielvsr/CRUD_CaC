@@ -39,17 +39,23 @@ public class ViewController extends HttpServlet {
                 case "/register":
                     response.sendRedirect("/vistas/registro.jsp");
                     break;
-                case "/hola":
+                case "/login":
                     response.sendRedirect("/vistas/login.jsp");
                     break;
-                case "/cuentas":
-                    response.sendRedirect("/vistas/perfilCuentas.jsp");
+                case "/perfilCuenta":
+                    response.sendRedirect("/vistas/viewProfile/perfilCuentas.jsp");
                     break;
-                case "/new":
-                    response.sendRedirect("/vistas/cuenta.jsp");
+                case "/nuevaCuenta":
+                    response.sendRedirect("/vistas/viewProfile/nuevaCuenta.jsp");
                     break;
                 case "/perfil":
                     response.sendRedirect("/vistas/perfil.jsp");
+                    break;
+                case "/editarP":
+                    response.sendRedirect("/vistas/viewProfile/editarPerfil.jsp");
+                    break;
+                case "/eliminar":
+                    response.sendRedirect("/vistas/viewProfile/eliminarCuenta.jsp");
                     break;
                 default:
                         

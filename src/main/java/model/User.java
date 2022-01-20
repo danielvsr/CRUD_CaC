@@ -12,6 +12,7 @@ import java.sql.SQLException;
  * @author danie
  */
 public class User {
+    private int id;
     private String username;
     private String password;
     private String name;
@@ -20,8 +21,9 @@ public class User {
     private String email;
     private List<Account> userAccounts;
 
-
-    public User(String username, String password, String name, String lastName, String gender, String email){
+/*CONSTRUCTOR DEL USUARIO COMPLETO*/
+    public User(int id, String username, String password, String name, String lastName, String gender, String email){
+        this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
@@ -32,14 +34,21 @@ public class User {
         AccountDAO accounts = new AccountDAO();
 
     }
-
+/*CONTRUCTOR SOLO PARA EL USUARIO Y CONTRASEÑA -> VA A SERVIR PARA EL METODO LOGIN*/
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
-
-
+ 
 /*EMPIEZAN LOS GET & SET*/    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -92,6 +101,14 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public List<Account> getUserAccounts() {
+        return userAccounts;
+    }    
+
+    public void setUserAccounts(List<Account> userAccounts) {
+        this.userAccounts = userAccounts;
+    }
 
 /*    
     public String getAvatar() {
@@ -103,13 +120,7 @@ public class User {
     }
 
     
-    public List<Account> getUserAccounts() {
-        return userAccounts;
-    }    
 
-    public void setUserAccounts(List<Account> userAccounts) {
-        this.userAccounts = userAccounts;
-    }
 
     
 */

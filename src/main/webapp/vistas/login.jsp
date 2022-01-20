@@ -1,15 +1,10 @@
-<%-- 
-    Document   : login
-    Created on : 23/12/2021, 17:02:56
-    Author     : danie
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/vistas/partials/header.jsp" %>
        
         <!-- LOGIN DE LA PAGINA -->
         <main class="container">
-            <h1 class="text-center mt-2 mb-4 display-6">Iniciar Sesión en Online Banking</h1>
+            <h1 class="text-center mt-5 mb-5 display-6 text-uppercase">Iniciar Sesión en Online Banking</h1>
             <section class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12 p-0 text-center">
                     <img class="img-fluid shadow rounded" src="../img/login.jpg" alt="quienes">
@@ -42,5 +37,6 @@
                 </div>
             </section>
         </main>
-   
+        
+<%@include file="/vistas/partials/footer.jsp" %>   
 

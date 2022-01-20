@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package controller;
 
 import database.UserDAO;
@@ -16,28 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
 
-/**
- *
- * @author danie
- */
+
 @WebServlet(name = "UserController", urlPatterns = {"/UserController/*"})
 public class UserController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-         
+        //Dentro del TRY vamos a definir todo lo que vamos a hacer con el SERVLET 
             String action = request.getPathInfo();
+            //Creamos una VARIABLE llamada "action" a la cual vamos a traer el "request" del "Path"
+            //Depende el nombre de la VARIABLE el SWITCH va a realizar un accion especifica
             HttpSession session = request.getSession();     
         
             UserDAO userDB = new UserDAO();
@@ -46,13 +33,11 @@ public class UserController extends HttpServlet {
                 case "/login":
                     String userName = request.getParameter("user");
                     String pass = request.getParameter("password");
-
-
                     boolean login = userDB.login(userName, pass);
                     if(login){
-                        User user = userDB.getUserByUserName(userName); 
+                        User usuario = userDB.getUserByUserName(userName);
                         session.setAttribute("isLogin", login);
-                       
+                        session.setAttribute("usuario", usuario);
                         response.sendRedirect("/vistas/perfil.jsp");
                     }else{
                         response.sendRedirect("/vistas/login.jsp");
@@ -68,7 +53,26 @@ public class UserController extends HttpServlet {
                     String gender = request.getParameter("gender");
 
                     userDB.createUser(userName, pass, name, lastname, email, gender);
-                    response.sendRedirect("/view/hola");
+                    response.sendRedirect("/view/login");
+                    break;
+                case"/editUser":
+                    /*
+                    
+
+                    */
+                    UserDAO user = new UserDAO();
+                    String name_ep = request.getParameter("name_ep");
+                    String lastname_ep = request.getParameter("lastname_ep");                
+                    String email_ep = request.getParameter("email_ep");                
+                    String gender_ep = request.getParameter("gender_ep");
+                    String nameUser_ep = request.getParameter("nameUser_ep");
+                    
+                    user.editUser(name_ep, lastname_ep, email_ep, gender_ep, nameUser_ep);
+
+                    response.sendRedirect("/vistas/viewProfile/exitoMensaje.jsp");
+                    String nameUser = request.getParameter("nameUser_ep");
+                    User usuario = userDB.getUserByUserName(nameUser);
+                    session.setAttribute("usuario", usuario);
                     break;
                 case"/logout":
                     session.setAttribute("isLogin", false);
