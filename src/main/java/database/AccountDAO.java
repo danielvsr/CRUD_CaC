@@ -29,7 +29,8 @@ public class AccountDAO {
         Conexion conn = new Conexion();
         connection = conn.getConnection("homebanking", "root", "carde53730");
     }
-        
+
+//METODO PARA TRAER LAS CUENTAS DE USUARIO.    
     public List<Account> getAccounts(int userId)throws SQLException {
         PreparedStatement ps;
         ResultSet rs;
@@ -44,7 +45,7 @@ public class AccountDAO {
                 int accountNumber = rs.getInt("account_number");
                 String type = rs.getString("type");
                 String currency = rs.getString("currency");
-                long balance = rs.getLong("balance");
+                double balance = rs.getDouble("balance");
                 int user_id = rs.getInt("user_id");
                 Account cuentas = new Account(id, accountNumber, type, currency, balance, user_id);
                 accountDB.add(cuentas);
@@ -52,51 +53,9 @@ public class AccountDAO {
             }
             return accountDB;
     }
-/*
-    public Account mostrarCuentas(int user_id)throws SQLException{
-        PreparedStatement ps;
-        ResultSet rs;
-        Account cuenta = null;
-        
-        ps = connection.prepareStatement("SELECT * FROM accounts WHERE user_id = ?");
-        ps.setInt(1, user_id);
-        rs = ps.executeQuery();
-        
-        if(rs.next()){
-            int account_number = rs.getInt("account_number"); 
-            String type = rs.getString("type"); 
-            String currency = rs.getString("currency"); 
-            long balance = rs.getLong("balance");
-            
-            cuenta = new Account( account_number, type, currency, balance, user_id);
-        }
-        return cuenta;
-    }
-    */
-    
-//    public Account getAccountByUserId(int user_id) throws SQLException {
-//        PreparedStatement ps;
-//        ResultSet rs;
-//        Account cuenta = null;
-//            
-//        ps = connection.prepareStatement("SELECT * FROM accounts INNER JOIN users ON users.id = accounts.user_id WHERE users.id = ?");
-//        ps.setInt(1, user_id);
-//        rs = ps.executeQuery();
-//        
-//        if(rs.next()){
-//
-//            int account_number = rs.getInt("account_number"); 
-//            String type = rs.getString("type"); 
-//            String currency = rs.getString("currency"); 
-//            long balance = rs.getLong("balance"); 
-//            
-//
-//            cuenta = new Account( account_number, type, currency, balance, user_id);
-//        }
-//        return cuenta;
-//    }
-    
-    public void crearCuentas(int account_number, String type, String currency, long balance, int user_id) throws SQLException{
+
+//METODO PARA CREACION DE CUENTAS    
+    public void crearCuentas(int account_number, String type, String currency, double balance, int user_id) throws SQLException{
         PreparedStatement ps;
         ResultSet rs;
         
@@ -105,13 +64,17 @@ public class AccountDAO {
             ps.setInt(1, account_number);
             ps.setString(2, type);
             ps.setString(3, currency);
-            ps.setLong(4, balance);
+            ps.setDouble(4, balance);
             ps.setInt(5, user_id);
             
-            ps.executeUpdate();    
+            ps.executeUpdate();
+            
+            ps.close();
+            connection.close();
     }
-    
-    public void updateAccount(int id, int account_number, String type, String currency, long balance)throws SQLException{
+ 
+//METODO PARA EDITAR CUENTAS (NO ES UTILIZADO DENTRO DEL CODIGO).    
+    public void updateAccount(int id, int account_number, String type, String currency, double balance)throws SQLException{
         PreparedStatement ps;
         ResultSet rs;            
         
@@ -119,11 +82,12 @@ public class AccountDAO {
             ps.setInt(1, account_number);
             ps.setString(2, type);
             ps.setString(3, currency);
-            ps.setLong(4, balance);
+            ps.setDouble(4, balance);
                      
             ps.executeUpdate();        
-    
     }
+    
+//METODO PARA BORRAR CUENTAS DE USUARIO.
     public void borrarCuenta (int id)throws SQLException{
         PreparedStatement ps;
         ResultSet rs;
@@ -131,28 +95,9 @@ public class AccountDAO {
         ps = connection.prepareStatement("DELETE FROM accounts WHERE id=?");
         ps.setInt(1, id);
         ps.executeUpdate();
-    }
-
-    
-    public boolean deleteAccount(int id) throws SQLException {
-        boolean result = true;
-        PreparedStatement ps;
         
-        ps = connection.prepareStatement("DELETE FROM accounts WHERE id=?");
-        ps.setInt(1, id);
-        ps.executeUpdate();
-        
-        return result;
-         
+        ps.close();
+        connection.close();
     }
-
-    public void getAccountById(int id) throws SQLException {
-        PreparedStatement ps;
-        ResultSet rs;
-        
-        ps = connection.prepareStatement("SELECT * FROM accounts WHERE id=?");
-        ps.setInt(1, id);
-        ps.executeQuery();
-               
-    }
+   
 }

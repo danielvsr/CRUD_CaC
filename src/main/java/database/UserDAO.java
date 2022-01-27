@@ -81,15 +81,15 @@ public class UserDAO {
                 //ESOS DATOS DEBEN SER LOS MISMOS QUE EN EL CONSTRUCTOS DE "User()" DONDE LOS TRAERMOS
                 //CONSTRUCTOR ES CUANDO TIENE EL POR EJEMPLO this.lastName = lastName QUE SE ALOJA DENTRO DE LOS PARAMETROS DEL CONSTRUCTOR
             }
-            /*
+            
             resultSt.close();
             preparedSt.close();
-            connection.close();*/
+            connection.close();
             return user;
 
     }   
 
-    
+//METODO PARA LLAMAR AL USUARIO POR "USERNAME"    
     public User getUserByUserName(String username) throws SQLException {
         PreparedStatement preparedSt;
         ResultSet resultSt;
@@ -109,10 +109,14 @@ public class UserDAO {
                 String email = resultSt.getString("email");
                 
                 user = new User(user_id, userName, password, name, lastName, gender, email);
-            }           
+            }
+            resultSt.close();
+            preparedSt.close();
+            connection.close();
             return user;
     }
 
+//METODO CORRESPONDIENTE AL LOGIN DE USUARIO.
     public boolean login(String username, String password) throws SQLException {
         PreparedStatement ps;
         ResultSet rs;
@@ -121,14 +125,26 @@ public class UserDAO {
         ps.setString(1, username);
         ps.setString(2, password);
         rs = ps.executeQuery();
-        /*
-        CUANDO CIERRO ESTA CONEXION SE ROMPE
-        rs.close();
-        ps.close();
-        connection.close();*/
-        return rs.next();
+        
+//CUANDO CIERRO ESTA CONEXION SE ROMPE
+//        rs.close();
+//        ps.close();
+//        connection.close();
+//        return rs.next();
+        if (rs.next()){
+            rs.close();
+            ps.close();
+            //connec.close();
+            return true;
+        } else {
+            rs.close();
+            ps.close();
+            //connec.close();
+            return false;
+        }
     }
-    
+
+//METODO PARA CREAR USUARIO.    
     public void createUser(String username, String password, String name, String lastname, String email, String gender) throws SQLException {
         PreparedStatement ps;
         ResultSet rs;
@@ -144,8 +160,13 @@ public class UserDAO {
         ps.setString(6, gender);
         
         ps.executeUpdate();
+
+                     
+        ps.close();
+        connection.close();
     }
     
+//METODO PARA EDITAR USUARIO SIN LLAMAR AL ID.    
     public void editUser(String name, String lastname, String email, String gender, String username)throws SQLException{
         PreparedStatement ps;
         ResultSet rs;
@@ -159,8 +180,29 @@ public class UserDAO {
         ps.setString(5, username);
         
         ps.executeUpdate();
+        
+        ps.close();
+//        connection.close();
     }
-       
+//METODO PARA EDITAR AL USUARIO LLAMANDO AL ID.    
+    public void modificarUsuario(int id, String name, String lastname, String email, String gender)throws SQLException{
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        ps = connection.prepareStatement("UPDATE users SET name = ? , last_name = ? , email = ? , gender = ? WHERE id = ?");
+    
+        ps.setString(1, name);
+        ps.setString(2, lastname);
+        ps.setString(3, email);
+        ps.setString(4, gender);
+        ps.setInt(5, id);
+        
+        ps.executeUpdate();
+        
+        ps.close();
+//        connection.close();    
+    }
+//METODO PARA LISTAR/TRAER A LOS USUARIOS.       
     public List<User> getUsers(int limit)throws SQLException {
         PreparedStatement ps;
         ResultSet rs;
@@ -172,38 +214,12 @@ public class UserDAO {
             
             while(rs.next()) {
                 usersDB.add(new User(rs.getString("username"), rs.getString("password")));
-            }
 
-        
-        return usersDB;
-  
-/*    
-    public boolean createUser(String username, String password, String name, String lastname, String email, String gender, String repass) throws SQLException {
-        PreparedStatement ps;
-        ResultSet rs;
-        
-        if (password.equals(repass)) {
-            ps = connection.prepareStatement("INSERT INTO users(username, password, name, last_name, email, gender) "
-                + "VALUES(?, ?, ?, ?, ?, ?)");
-            ps.setString(1, username);
-            ps.setString(2, password);
-            ps.setString(3, name);
-            ps.setString(4, lastname);
-            ps.setString(5, email);
-            ps.setString(6, gender);
-            ps.executeUpdate();
-            
-            ps = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-              return true;
             }
-          return false;  
-        }       
-       return false;    
-    }
-*/    
+//        rs.close();
+//        ps.close();
+//        connection.close();
+        return usersDB; 
 }
 
 //NOS PERMITE PARA UTILIZAR OTROS METODOS

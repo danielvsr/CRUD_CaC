@@ -29,7 +29,7 @@
         </section>
     <!-- SECCION PRODUCTOS -->    
         <h1 class="text-center m-5 display-6 text-uppercase">Solicite sus productos</h1>
-        <section class="container">
+        <section class="container mb-5">
             <article class="row" id="productos">
                 <div class="col-lg-6 col-md-12 col-sm-12 p-0" >
                     <p class="p-2 fs-5 text-uppercase text-muted">
@@ -39,14 +39,26 @@
                         dolor eu. Do ullamco eiusmod sit fugiat esse. 
                     </p>
                     <div class="mb-5">
-                        <button type="button" class="btn btn-secondary mt-3">Solicitar</button>
+                        <%
+                            if(isLogged){
+                                User usuario = (User) session.getAttribute("usuario");
+                                Account account = (Account) session.getAttribute("accounts");  
+                        %>   
+                        <a href="/view/nuevaCuenta" type="button" class="btn btn-dark mt-3">Solicitar</a>
+                        <%
+                            } else {
+                        %>
+                        <a href="/view/login" type="button" class="btn btn-secondary mt-3">Solicitar</a>
+                        <%
+                            }    
+                        %>
                     </div>
                 </div>                
                 <div class="col-lg-6 col-md-12 col-sm-12 p-0 text-center">
                     <img class="img-fluid shadow rounded" src="img/producto.jpg" alt="producto">
                 </div>
             </article>
-        </section>    
+        </section> 
     </main>
 
 <%@include file="/vistas/partials/footer.jsp" %>

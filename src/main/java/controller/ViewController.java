@@ -57,6 +57,15 @@ public class ViewController extends HttpServlet {
                 case "/eliminar":
                     response.sendRedirect("/vistas/viewProfile/eliminarCuenta.jsp");
                     break;
+                case "/exito":
+                    response.sendRedirect("/vistas/componentes/exitoMensaje.jsp");
+                    break;
+                case "/error":
+                    response.sendRedirect("/vistas/componentes/errorMensaje.jsp");
+                    break;
+                case "/404":
+                    response.sendRedirect("/vistas/componentes/error404.jsp");
+                    break;
                 default:
                         
                     break;

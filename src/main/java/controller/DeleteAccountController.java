@@ -48,10 +48,14 @@ public class DeleteAccountController extends HttpServlet {
             UserDAO userDB = new UserDAO();
             AccountDAO accountDB = new AccountDAO();
             switch (action){
-                case "/delCuenta":
- 
-                    response.sendRedirect("/view/perfil");
+
+                case "/delete":                
+                    accountDB = new AccountDAO();
+                    int idCuenta = Integer.parseInt(request.getParameter("idAccount"));
                     
+                    accountDB.borrarCuenta(idCuenta);
+                    response.sendRedirect("/view/exito");
+                                        
                     break;
                 default:
                     

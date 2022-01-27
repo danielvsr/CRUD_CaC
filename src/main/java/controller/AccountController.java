@@ -52,13 +52,6 @@ public class AccountController extends HttpServlet {
             
             switch (action){
                 case "/perfilCuenta":
-                    /*
-                    List<Account> accounts = new ArrayList<>();
-                    User user = (User) session.getAttribute("user");
-                    accounts = accountDB.getAccounts(user.getId());
-                    session.setAttribute("accounts", accounts);
-                    response.sendRedirect("/view/perfilCuenta.jsp");*/
-                    
                     response.sendRedirect("/view/perfilCuenta.jsp");
                     String userName = request.getParameter("nameUser_ep");
                     User usuario = userDB.getUserByUserName(userName);
@@ -67,26 +60,17 @@ public class AccountController extends HttpServlet {
                     accounts = accountDB.getAccounts(usuario.getId());
                     session.setAttribute("accounts", accounts);
                     break;
-                case "/delete":
- 
-                    response.sendRedirect("/view/perfil");
-                    
-                    break;    
+
                 case "/nuevaCuenta":
-                    /*
-                    UserDAO userDB = new UserDAO();
-                    String userName = request.getParameter("user");
-                    String pass = request.getParameter("password");
-                    boolean login = userDB.login(userName, pass);
-                    */
+
                     int account_number = Integer.parseInt(request.getParameter("account_number"));
                     String type = request.getParameter("type");
                     String currency = request.getParameter("currency");
-                    long balance = Long.parseLong(request.getParameter("balance"));
+                    double balance = Double.parseDouble(request.getParameter("balance"));
                     int user_id = Integer.parseInt(request.getParameter("user_id"));
                     
-                    accountDB.crearCuentas(account_number, type, currency, balance, user_id);
-                    response.sendRedirect("/view/perfil");
+                    accountDB.crearCuentas(account_number, type, currency,balance, user_id);
+                    response.sendRedirect("/view/exito");
                     
                     break;
 

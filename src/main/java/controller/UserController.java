@@ -40,7 +40,7 @@ public class UserController extends HttpServlet {
                         session.setAttribute("usuario", usuario);
                         response.sendRedirect("/vistas/perfil.jsp");
                     }else{
-                        response.sendRedirect("/vistas/login.jsp");
+                        response.sendRedirect("/view/error");
                     };                    
                     break;
 
@@ -55,25 +55,23 @@ public class UserController extends HttpServlet {
                     userDB.createUser(userName, pass, name, lastname, email, gender);
                     response.sendRedirect("/view/login");
                     break;
-                case"/editUser":
-                    /*
+                case"/modificarUsuario":
+                    userDB = new UserDAO();
                     
-
-                    */
-                    UserDAO user = new UserDAO();
-                    String name_ep = request.getParameter("name_ep");
-                    String lastname_ep = request.getParameter("lastname_ep");                
-                    String email_ep = request.getParameter("email_ep");                
-                    String gender_ep = request.getParameter("gender_ep");
-                    String nameUser_ep = request.getParameter("nameUser_ep");
+                    String name_mp = request.getParameter("name_ep");
+                    String lastname_mp = request.getParameter("lastname_ep");                
+                    String email_mp = request.getParameter("email_ep");                
+                    String gender_mp = request.getParameter("gender_ep");
+                    int id_ep = Integer.parseInt(request.getParameter("id_mp"));
                     
-                    user.editUser(name_ep, lastname_ep, email_ep, gender_ep, nameUser_ep);
-
-                    response.sendRedirect("/vistas/viewProfile/exitoMensaje.jsp");
-                    String nameUser = request.getParameter("nameUser_ep");
-                    User usuario = userDB.getUserByUserName(nameUser);
-                    session.setAttribute("usuario", usuario);
+                    userDB.modificarUsuario(id_ep, name_mp, lastname_mp, email_mp, gender_mp);
+                    
+                    response.sendRedirect("/view/exito");
+                    int id = Integer.parseInt(request.getParameter("id_mp"));
+                    User usuario = userDB.getUserByID(id);
+                    session.setAttribute("usuario", usuario);                   
                     break;
+                    
                 case"/logout":
                     session.setAttribute("isLogin", false);
                     response.sendRedirect("/");

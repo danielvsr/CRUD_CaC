@@ -1,9 +1,5 @@
-<%-- 
-    Document   : header
-    Created on : 27/12/2021, 13:07:05
-    Author     : danie
---%>
 
+<%@page import="model.Account"%>
 <%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -43,13 +39,14 @@
                     boolean isLogged = (boolean) session.getAttribute("isLogin");
                         if(isLogged){
                         User usuario = (User) session.getAttribute("usuario");
+                        Account account = (Account) session.getAttribute("accounts");
                 %>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link mx-2" aria-current="page" href="/view/perfilCuenta">Mis Cuentas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" aria-current="page" href="#">Transferencias</a>
+                        <a class="nav-link mx-2" aria-current="page" href="/view/404">Transferencias</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-2" aria-current="page" href="/view/nuevaCuenta">Solicitar Productos</a>
@@ -66,10 +63,10 @@
                 %>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link mx-2" aria-current="page" href="../#institucional">Institucional</a>
+                        <a class="nav-link mx-2" aria-current="page" href="/#institucional">Institucional</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" aria-current="page" href="../#productos">Productos</a>
+                        <a class="nav-link mx-2" aria-current="page" href="/#productos">Productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-2" aria-current="page" href="/view/register">Hacete cliente</a>
@@ -81,7 +78,6 @@
                 <% 
                     }
                 %>    
-
             </div>
         </div>
     </nav>

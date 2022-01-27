@@ -39,6 +39,21 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
+    public User(int id, String name, String lastName, String gender, String email) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = email;
+    }
+
+    public User(String name, String lastName, String gender, String email) {
+        this.name = name;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = email;
+    }
  
 /*EMPIEZAN LOS GET & SET*/    
     public int getId() {

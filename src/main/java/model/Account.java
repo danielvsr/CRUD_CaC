@@ -13,10 +13,10 @@ public class Account {
     private int accountNumber;
     private String type;
     private String currency;
-    private long balance;
+    private double balance;
     private int userId;
 
-    public Account(int id, int accountNumber, String type, String currency, long balance, int userId) {
+    public Account(int id, int accountNumber, String type, String currency, double balance, int userId) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.type = type;
@@ -25,6 +25,14 @@ public class Account {
         this.userId = userId;
     }
 
+    public Account(int id, int accountNumber, String type, String currency, double balance) {
+        this.id = id;
+        this.accountNumber = accountNumber;
+        this.type = type;
+        this.currency = currency;
+        this.balance = balance;
+    }
+    
     public int getId() {
         return id;
     }
@@ -66,7 +74,7 @@ public class Account {
         this.currency = currency;
     }
 
-    public long getBalance() {
+    public double getBalance() {
         return balance;
     }
 
